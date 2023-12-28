@@ -1,2 +1,16 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+import os
+
+def rename_files_in_folder(folder_path):
+    for filename in os.listdir(folder_path):
+        if os.path.isfile(os.path.join(folder_path, filename)):
+            base, extension = os.path.splitext(filename)
+            words = base.split()
+            new_base = ' '.join(word for word in words if not word.isdigit())
+            new_filename = new_base + extension
+            new_path = os.path.join(folder_path, new_filename)
+            os.rename(os.path.join(folder_path, filename), new_path)
+            print(f'Renamed: {filename} to {new_filename}')
+
+if __name__ == "__main__":
+    folder_path = "D:\Software"  # main path where the change will occur
+    rename_files_in_folder(folder_path)
